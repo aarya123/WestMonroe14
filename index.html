@@ -25,7 +25,7 @@
 	<label for="gpa">GPA:</label>
 	<input id="gpa" type="number" name="gpa">
 	<label for="grad_date">Expected Graduation Date:</label>
-	<input id="grad_date" type="number" name="grad_date">
+	<input id="grad_date" type="date" name="grad_date">
 	<label for="resume">Resume:</label>
 	<input id="resume" type="file" accept=".pdf" name="resume">
 	<input type="submit" value="Create Candidate">

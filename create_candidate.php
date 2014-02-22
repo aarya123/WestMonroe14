@@ -8,7 +8,7 @@
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
 		$sql_stmt = <<<'EOT'
-INSERT INTO candidates (name, email, school, major, gpa, grad_date)
+INSERT INTO candidate (name, email, school, major, gpa, grad_date)
 VALUES (:name, :email, :school, :major, :gpa, :grad_date)
 EOT;
 		$stmt = $db->prepare($sql_stmt);

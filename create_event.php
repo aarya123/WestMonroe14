@@ -9,7 +9,7 @@ include_once("db.php");
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
 		//TODO: proper time entry
 		$sql_stmt = <<<'EOT'
-INSERT INTO events (name, description, location, time)
+INSERT INTO event (name, description, location, time)
 VALUES (:name, :description, :location, :time)
 EOT;
 		$stmt = $db->prepare($sql_stmt);
@@ -24,7 +24,7 @@ EOT;
 			echo json_encode(array('error' => $stmt->errorInfo()));
 			exit();
 		}
-		echo json_encode(array('event_name' => $_POST['name']));
+		echo json_encode(array('event_id' => $db->lastInsertId()));
 	}
 	catch(PDOException $e) {
 		echo json_encode(array('error' => $e->getMessage()));
