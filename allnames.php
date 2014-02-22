@@ -2,9 +2,7 @@
 	include_once("db.php");
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
-		$sql_stmt = <<<'EOT'
-SELECT `name` from `Candidate`
-EOT;
+		$sql_stmt = "SELECT name, id FROM Candidate";
 		$stmt = $db->prepare($sql_stmt);
 		$stmt->execute();
 		if($stmt->errorCode() != 0) {
@@ -14,7 +12,8 @@ EOT;
 		$users = $stmt->fetchAll();
 		foreach ($users as $user) {
 			$name = $user['name'];
-			echo "<option value='$name'></option>";
+			$id = $user['id'];
+			echo "<option value='$id' label='$name'></option>";
 		}
 	}
 	catch(PDOException $e) {
