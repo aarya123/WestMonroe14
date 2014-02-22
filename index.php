@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
 </head>
 <body>
@@ -30,4 +31,13 @@
 	<input id="resume" type="file" accept=".pdf" name="resume">
 	<input type="submit" value="Create Candidate">
 </form>
+
+<input type="text" list='names'>
+<datalist id="names">
+	<select>
+		<?php include("allnames.php"); ?>
+	</select>
+</datalist>
+
 </body>
+</html>
