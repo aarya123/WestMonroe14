@@ -96,19 +96,17 @@ function loadInvite(str){
 			if(xmlhttp.responseText!="[]")
 			{
 				var result=JSON.parse(xmlhttp.responseText);
-				console.log(result);
 				var yes = document.getElementById("Yes");
 				var no = document.getElementById("No");
 				var notes = document.getElementById("Notes");
-				if(result["attended"]==0)
+				if(result[0]["attended"]==0)
 					no.checked=true;
 				else
 					yes.checked=true;
-				if(result["notes"]!=null)
-					notes.value=result["notes"];
+				if(result[0]["notes"]!=null)
+					notes.value=result[0]["notes"];
 			}
 			else{
-				console.log("blank");
 				document.getElementById("Yes").checked=false;
 				document.getElementById("No").checked=false;
 				document.getElementById("Notes").value="";
