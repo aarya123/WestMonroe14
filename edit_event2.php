@@ -1,7 +1,7 @@
 <?php
-$sql_update_field = "UPDATE Event SET name=:name, location=:location, time=:time WHERE id=:event_id";
+$sql_update_field = "UPDATE Event SET name=:name, location=:location, time=:time, description=:description WHERE id=:event_id";
 include_once("db.php");
-	$required = array('id', 'name', 'location', 'time');
+	$required = array('id', 'name', 'location', 'time', 'desc');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
 		echo json_encode(array('error' => 'invalid args'));
 		exit();
@@ -13,6 +13,7 @@ include_once("db.php");
 				':name' => $_POST['name'],
 				':location' => $_POST['location'],
 				':time' => $_POST['time'],
+				':description' => $_POST['desc'],
 				':event_id' => $_POST['id']
 			)
 		);
