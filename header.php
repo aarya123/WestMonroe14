@@ -3,6 +3,7 @@
 <head>
 	<link rel="stylesheet" href="style.css">
 	<script src="placeholder.js" defer></script>
+	<script src="prefixfree.min.js"></script>
 </head>
 <body>
 	<header>
