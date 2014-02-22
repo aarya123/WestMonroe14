@@ -8,7 +8,6 @@ include_once("db.php");
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
 		//TODO: proper time entry
-		$_POST['time'] = time();
 		$sql_stmt = <<<'EOT'
 INSERT INTO events (name, description, location, time)
 VALUES (:name, :description, :location, :time)
