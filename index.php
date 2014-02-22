@@ -1,8 +1,3 @@
 <?php include('header.php'); ?>
-<input type="text" list='names'>
-<datalist id="names">
-	<select>
-		<?php include("allnames.php"); ?>
-	</select>
-</datalist>
+Select an action.
 <?php include('footer.php') ?>
