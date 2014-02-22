@@ -1,7 +1,7 @@
 <?php
-$sql_update_field = "UPDATE Interview SET Interviewer=:interviewer, Notes=:notes, Candidate_id=:candidate_id WHERE id=:interview_id";
+$sql_update_field = "UPDATE Interview SET Interviewer=:interviewer, Notes=:notes, Candidate_id=:candidate_id, Name=:name WHERE id=:interview_id";
 include_once("db.php");
-	$required = array('interview_id', 'candidate_id', 'notes', 'interviewer');
+	$required = array('interview_id', 'candidate_id', 'notes', 'name', 'interviewer');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
 		echo json_encode(array('error' => 'invalid args'));
 		exit();
@@ -13,6 +13,7 @@ include_once("db.php");
 				':interview_id' => $_POST['interview_id'],
 				':candidate_id' => $_POST['candidate_id'],
 				':notes' => $_POST['notes'],
+				':name' => $_POST['name'],
 				':interviewer' => $_POST['interviewer']
 			)
 		);
