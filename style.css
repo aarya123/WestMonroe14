@@ -1,12 +1,20 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+	font-weight: bold;
+}
 header {
-	height: 4rem;
 	border-bottom: 1px solid lightgrey;
+}
+#logo {
+	max-height: 4rem;
+	max-width: 100%;
 }
 nav {
 	width: 10rem;
 	position: absolute;
 	border-right: 1px solid lightgrey;
-	min-height: calc(100% - 4rem - 1px);
+	min-height: calc(100% - 4rem - 6px);
 	padding: .5rem;
 	box-sizing: border-box;
 }
@@ -14,17 +22,17 @@ nav {
 		text-decoration: none;
 		display: block;
 		margin: .25rem 0;
-		color: blue;
+		color: #013668;
+		transition: margin-right .3s, padding-left .3s, color .2s;
 	}
 		nav a:hover {
-			text-decoration: underline;
+			color: #FBB812;
+			padding-left: .25rem;
+			margin-right: -.25rem;
 		}
 main {
 	margin-left: 10rem;
 	padding: .5rem;
-}
-body {
-	margin: 0;
 }
 input, select {
 	width: 100%;

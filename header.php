@@ -6,6 +6,7 @@
 </head>
 <body>
 	<header>
+		<img id="logo" src="West_Monroe_Partners_Logo.jpg">
 	</header>
 	<nav>
 		<a href="createEvent.php">Add an event</a>
