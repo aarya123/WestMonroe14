@@ -1,6 +1,6 @@
 <?php
 $sql_stmt = <<<'EOT'
-INSERT INTO event_has_candidate (Event_id, Candidate_id)
+INSERT INTO Event_has_candidate (Event_id, Candidate_id)
 VALUES (:event_id, :candidate_id)
 EOT;
 include_once("db.php");

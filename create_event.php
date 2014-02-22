@@ -1,6 +1,6 @@
 <?php
 $sql_stmt = <<<'EOT'
-INSERT INTO event (name, description, location, time)
+INSERT INTO Event (name, description, location, time)
 VALUES (:name, :description, :location, :time)
 EOT;
 include_once("db.php");

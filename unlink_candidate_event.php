@@ -1,6 +1,6 @@
 <?php
 $sql_stmt = <<<'EOT'
-DELETE FROM event_has_candidate 
+DELETE FROM Event_has_candidate 
 WHERE Event_id=:event_id AND Candidate_id=:candidate_id
 EOT;
 include_once("db.php");

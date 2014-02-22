@@ -1,6 +1,6 @@
 <?php
 $sql_stmt = <<<'EOT'
-INSERT INTO candidate (name, email, school, major, gpa, grad_date)
+INSERT INTO Candidate (name, email, school, major, gpa, grad_date)
 VALUES (:name, :email, :school, :major, :gpa, :grad_date)
 EOT;
 	include_once("db.php");
