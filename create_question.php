@@ -19,9 +19,9 @@ try {
 		echo json_encode(array('error' => $stmt->errorInfo()));
 		exit();
 	}
-	header("http://localhost");
 }
 catch(PDOException $e) {
 	echo json_encode(array('error' => $e->getMessage()));
 }
+header("Location: /");
 ?>
