@@ -1,6 +1,6 @@
 <?php include('header.php') ?>
 <select id="selectEvent" onchange="updateEvent(this.value);">
-	<option disabled selected>Select a candidate</option>
+	<option disabled selected>Select an event</option>
 	<?php include("allevents.php"); ?>
 </select>
 
@@ -10,7 +10,7 @@
 	<input disabled placeholder="Description" id="desc" type="text" name="desc">
 	<input disabled placeholder="Location" id="location" type="text" name="location">
 	<input disabled placeholder="Date" id="time" type="date" name="time">
-	<input disabled type="submit" value="Update Candidate">
+	<input disabled type="submit" value="Update Event">
 </form>
 
 
