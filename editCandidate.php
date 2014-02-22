@@ -20,7 +20,6 @@
 
 <script>
 	function updateCandidate(id) {
-		document.getElementById('selectCandidate').disabled = true;
 		var req = new XMLHttpRequest();
 		req.onload = function() {
 			document.getElementById('id').value = id;

@@ -7,7 +7,7 @@
 <form id="create_event" method="POST" action="edit_event2.php">
 	<input type="hidden" id="id" name="id">
 	<input disabled placeholder="Name" id="name" type="text" name="name">
-	<input disabled placeholder="Description" id="desc" type="text" name="desc">
+	<input disabled placeholder="Description" id="description" type="text" name="description">
 	<input disabled placeholder="Location" id="location" type="text" name="location">
 	<input disabled placeholder="Date" id="time" type="date" name="time">
 	<input disabled type="submit" value="Update Event">
@@ -16,7 +16,6 @@
 
 <script>
 	function updateEvent(id) {
-		document.getElementById('selectEvent').disabled = true;
 		var req = new XMLHttpRequest();
 		req.onload = function() {
 			document.getElementById('id').value = id;
