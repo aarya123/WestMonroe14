@@ -1,8 +1,5 @@
 <?php
-$sql_stmt = <<<'EOT'
-INSERT INTO Event (name, description, location, time)
-VALUES (:name, :description, :location, :time)
-EOT;
+$sql_stmt = "INSERT INTO Event (name, description, location, time) VALUES (:name, :description, :location, :time)"
 include_once("db.php");
 	$required = array('name', 'desc', 'location', 'time');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {

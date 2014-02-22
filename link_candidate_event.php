@@ -1,8 +1,5 @@
 <?php
-$sql_stmt = <<<'EOT'
-INSERT INTO Event_has_candidate (Event_id, Candidate_id)
-VALUES (:event_id, :candidate_id)
-EOT;
+$sql_stmt = "INSERT INTO Event_has_candidate (Event_id, Candidate_id) VALUES (:event_id, :candidate_id)";
 include_once("db.php");
 	$required = array('candidate_id', 'event_id');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {

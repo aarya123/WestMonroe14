@@ -1,8 +1,5 @@
 <?php
-$sql_stmt = <<<'EOT'
-DELETE FROM Event_has_candidate 
-WHERE Event_id=:event_id AND Candidate_id=:candidate_id
-EOT;
+$sql_stmt = "DELETE FROM Event_has_candidate WHERE Event_id=:event_id AND Candidate_id=:candidate_id";
 include_once("db.php");
 	$required = array('candidate_id', 'event_id');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {

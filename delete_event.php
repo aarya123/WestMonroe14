@@ -1,12 +1,6 @@
 <?php
-$sql_delete_links = <<<'EOT'
-DELETE FROM Event_has_candidate
-WHERE Event_id=:event_id
-EOT;
-$sql_delete_event = <<<'EOT'
-DELETE FROM Event
-WHERE id=:event_id
-EOT;
+$sql_delete_links = "DELETE FROM Event_has_candidate WHERE Event_id=:event_id";
+$sql_delete_event = "DELETE FROM Event WHERE id=:event_id";
 
 include_once("db.php");
 	$required = array('id');

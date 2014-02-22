@@ -1,13 +1,6 @@
 <?php
-$sql_delete_links = <<<'EOT'
-DELETE FROM Event_has_candidate
-WHERE Candidate_id=:candidate_id
-EOT;
-$sql_delete_candidate = <<<'EOT'
-DELETE FROM Candidate
-WHERE id=:candidate_id
-EOT;
-
+$sql_delete_links = "DELETE FROM Event_has_candidate WHERE Candidate_id=:candidate_id";
+$sql_delete_candidate = "DELETE FROM Candidate WHERE id=:candidate_id";
 include_once("db.php");
 	$required = array('id');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
