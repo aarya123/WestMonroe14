@@ -8,10 +8,9 @@ include_once("db.php");
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
 		//TODO: proper time entry
-		$_POST['time'] = time();
 		$sql_stmt = <<<'EOT'
 INSERT INTO events (name, description, location, time)
-VALUES (:name, :description, :location, :time)
+VALUES (:name, :description, :location, UNIX_TIMESTAMP(STR_TO_DATE(:time, '%Y-%m-%d')))
 EOT;
 		$stmt = $db->prepare($sql_stmt);
 		$stmt->execute(array(
