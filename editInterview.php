@@ -31,14 +31,11 @@
 			}
 			var select = document.querySelector("#Candidate_id");
 			for(var i = 0; i < select.options.length; ++i) {
-				console.log(i);
-				if(select.options[i].value == candidate.candidate_id) {
-					console.log("SELECT");
+				if(select.options[i].value == candidate.Candidate_id) {
 					select.selectedIndex = i;
 					break;
 				}
 			}
-			//document.querySelector("#Candidate_id [id= '" + candidate.candidate_id + "']").addAttribute('selected');
 		}
 		
 		req.open('post', 'get_interview.php', true);

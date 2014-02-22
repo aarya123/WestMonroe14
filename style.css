@@ -15,20 +15,20 @@ nav {
 	position: absolute;
 	border-right: 1px solid lightgrey;
 	min-height: calc(100% - 4rem - 6px);
-	padding: .5rem;
 	box-sizing: border-box;
 }
 	nav a {
 		text-decoration: none;
 		display: block;
-		margin: .25rem 0;
 		color: #013668;
-		transition: margin-right .3s, padding-left .3s, color .2s;
+		transition: padding-right .3s, padding-left .3s, color .2s;
+		padding: .5rem;
+		border-bottom: 1px solid lightgrey;
 	}
 		nav a:hover, nav a.active {
 			color: #FBB812;
-			padding-left: .25rem;
-			margin-right: -.25rem;
+			padding-left: .75rem;
+			padding-right: .25rem;
 		}
 main {
 	margin-left: 10rem;

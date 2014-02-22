@@ -14,6 +14,8 @@
 		<a href="editEvent.php">Edit an Event</a>
 		<a href="createCandidate.php">Add a Candidate</a>
 		<a href="editCandidate.php">Edit a Candidate</a>
+		<a href="createInterview.php">Add an Interview</a>
+		<a href="editInterview.php">Edit an Interview</a>
 		<a href="candidateAttendance.php">Candidate Attendance</a>
 	</nav>
 	<main>

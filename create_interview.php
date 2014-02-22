@@ -25,4 +25,5 @@ try {
 catch(PDOException $e) {
 	echo json_encode(array('error' => $e->getMessage()));
 }
+header('Location: /');
 ?>
