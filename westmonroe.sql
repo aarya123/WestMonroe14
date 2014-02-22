@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `WMP14`.`Event_has_Candidate` (
   `Event_id` INT NOT NULL,
   `Candidate_id` INT(11) NOT NULL,
   `notes` VARCHAR(255) NULL,
+  `attended` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`Event_id`, `Candidate_id`),
   INDEX `fk_Event_has_Candidate_Candidate1_idx` (`Candidate_id` ASC),
   INDEX `fk_Event_has_Candidate_Event_idx` (`Event_id` ASC),
@@ -69,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `WMP14`.`Interview` (
   `Interviewer` VARCHAR(45) NOT NULL,
   `Notes` VARCHAR(255) NULL,
   `Candidate_id` INT(11) NOT NULL,
+  `Name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Interview_Candidate1_idx` (`Candidate_id` ASC),
   CONSTRAINT `fk_Interview_Candidate1`
