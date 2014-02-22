@@ -7,7 +7,18 @@ nav {
 	position: absolute;
 	border-right: 1px solid lightgrey;
 	min-height: calc(100% - 4rem - 1px);
+	padding: .5rem;
+	box-sizing: border-box;
 }
+	nav a {
+		text-decoration: none;
+		display: block;
+		margin: .25rem 0;
+		color: blue;
+	}
+		nav a:hover {
+			text-decoration: underline;
+		}
 main {
 	margin-left: 10rem;
 	padding: .5rem;
@@ -16,10 +27,23 @@ body {
 	margin: 0;
 }
 input {
+	width: 100%;
 	display: block;
 	margin: .25rem 0;
 	height: 1.5rem;
 	padding: .25rem;
 	box-sizing: border-box;
-	width: 50%;
+	max-width: 25rem;
+}
+@media (max-width: 25rem) {
+	nav {
+		position: static;
+		width: auto;
+		border-right: none;
+		border-bottom: 1px solid lightgrey;
+		min-height: auto;
+	}
+	main {
+		margin-left: 0;
+	}
 }
