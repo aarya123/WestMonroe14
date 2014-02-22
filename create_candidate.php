@@ -1,4 +1,5 @@
 <?php
+include('header.php');
 $sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date) VALUES (:name, :email, :school, :major, :gpa, :grad_date)";
 	include_once("db.php");
 	$required = array('name', 'email', 'school', 'major', 'gpa', 'grad_date');
@@ -27,4 +28,5 @@ $sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date) 
 	catch(PDOException $e) {
 		echo json_encode(array('error' => $e->getMessage()));
 	}
+include('footer.php');
 ?>

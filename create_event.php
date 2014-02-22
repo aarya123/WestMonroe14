@@ -1,5 +1,6 @@
 <?php
-$sql_stmt = "INSERT INTO Event (name, description, location, time) VALUES (:name, :description, :location, :time)"
+include('header.php');
+$sql_stmt = "INSERT INTO Event (name, description, location, time) VALUES (:name, :description, :location, :time)";
 include_once("db.php");
 	$required = array('name', 'desc', 'location', 'time');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
@@ -25,4 +26,5 @@ include_once("db.php");
 	catch(PDOException $e) {
 		echo json_encode(array('error' => $e->getMessage()));
 	}
+include('footer.php');
 ?>
