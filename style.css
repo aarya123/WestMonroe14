@@ -1,12 +1,20 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+	font-weight: bold;
+}
 header {
-	height: 4rem;
 	border-bottom: 1px solid lightgrey;
+}
+#logo {
+	max-height: 4rem;
+	max-width: 100%;
 }
 nav {
 	width: 10rem;
 	position: absolute;
 	border-right: 1px solid lightgrey;
-	min-height: calc(100% - 4rem - 1px);
+	min-height: calc(100% - 4rem - 6px);
 	padding: .5rem;
 	box-sizing: border-box;
 }
@@ -14,19 +22,19 @@ nav {
 		text-decoration: none;
 		display: block;
 		margin: .25rem 0;
-		color: blue;
+		color: #013668;
+		transition: margin-right .3s, padding-left .3s, color .2s;
 	}
-		nav a:hover {
-			text-decoration: underline;
+		nav a:hover, nav a.active {
+			color: #FBB812;
+			padding-left: .25rem;
+			margin-right: -.25rem;
 		}
 main {
 	margin-left: 10rem;
 	padding: .5rem;
 }
-body {
-	margin: 0;
-}
-input, select {
+input:not[type="radio"], select {
 	width: 100%;
 	display: block;
 	margin: .25rem 0;
@@ -34,6 +42,28 @@ input, select {
 	padding: .25rem;
 	box-sizing: border-box;
 	max-width: 25rem;
+	border: 1px solid grey;
+	color: black;
+}
+input:disabled, select:disabled {
+	border: 1px solid lightgrey;
+	color: #DDD;
+	background-color: #EEE;
+}
+input[type="submit"] {
+	border-radius: .5rem;
+	border-width: 0;
+}
+input[type="submit"]:not(:disabled),
+input[type="file"]:not(:disabled) {
+	cursor: pointer;
+}
+input[type="submit"]:not(:disabled):hover {
+	color: #444;
+	background-color: #E0E0E0;
+}
+input[type="file"] {
+	height: auto;
 }
 @media (max-width: 25rem) {
 	nav {
