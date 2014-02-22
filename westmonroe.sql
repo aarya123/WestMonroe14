@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2014 at 07:13 PM
+-- Generation Time: Feb 22, 2014 at 07:43 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `name` text NOT NULL,
   `description` text NOT NULL,
   `location` text NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time` date NOT NULL,
   PRIMARY KEY (`name`(30))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

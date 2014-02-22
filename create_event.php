@@ -10,7 +10,7 @@ include_once("db.php");
 		//TODO: proper time entry
 		$sql_stmt = <<<'EOT'
 INSERT INTO events (name, description, location, time)
-VALUES (:name, :description, :location, UNIX_TIMESTAMP(STR_TO_DATE(:time, '%Y-%m-%d')))
+VALUES (:name, :description, :location, :time)
 EOT;
 		$stmt = $db->prepare($sql_stmt);
 		$stmt->execute(array(
