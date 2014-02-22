@@ -4,7 +4,7 @@
 	<?php include("allnames.php"); ?>
 </select>
 
-<form disabled id="create_candidate" method="POST" action="edit_candidate2.php">
+<form id="create_candidate" method="POST" action="edit_candidate2.php">
 	<input type="hidden" id="id" name="id">
 	<input disabled placeholder="Name" id="name" type="text" name="name">
 	<input disabled placeholder="Email" id="email" type="email" name="email">

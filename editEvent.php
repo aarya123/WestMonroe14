@@ -1,12 +1,10 @@
 <?php include('header.php') ?>
-<input placeholder="Search for an event" type="text" list='names'>
-<datalist id="names">
-	<select>
-		<?php include("allevents.php"); ?>
-	</select>
-</datalist>
+<select id="selectEvent" onchange="updateEvent(this.value);">
+	<option disabled selected>Select a candidate</option>
+	<?php include("allevents.php"); ?>
+</select>
 
-<form disabled id="create_event" method="POST" action="edit_candidate2.php">
+<form id="create_event" method="POST" action="edit_event2.php">
 	<input type="hidden" id="id" name="id">
 	<input disabled placeholder="Name" id="name" type="text" name="name">
 	<input disabled placeholder="Description" id="desc" type="text" name="desc">
@@ -17,8 +15,8 @@
 
 
 <script>
-	function updateCandidate(id) {
-		document.getElementById('selectCandidate').disabled = true;
+	function updateEvent(id) {
+		document.getElementById('selectEvent').disabled = true;
 		var req = new XMLHttpRequest();
 		req.onload = function() {
 			document.getElementById('id').value = id;
@@ -32,7 +30,7 @@
 			}
 		}
 		
-		req.open('post', 'get_candidate.php', true);
+		req.open('post', 'get_event.php', true);
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.send('id=' + encodeURIComponent(id));
 	}
