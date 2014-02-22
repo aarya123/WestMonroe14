@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `WMP14`.`Candidate` (
   `major` VARCHAR(45) NOT NULL,
   `gpa` DECIMAL(10,0) NOT NULL,
   `grad_date` DATETIME NOT NULL,
+  `offer_status` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id` (`id` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
@@ -43,6 +44,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `WMP14`.`Event_has_Candidate` (
   `Event_id` INT NOT NULL,
   `Candidate_id` INT(11) NOT NULL,
+  `notes` VARCHAR(255) NULL,
   PRIMARY KEY (`Event_id`, `Candidate_id`),
   INDEX `fk_Event_has_Candidate_Candidate1_idx` (`Candidate_id` ASC),
   INDEX `fk_Event_has_Candidate_Event_idx` (`Event_id` ASC),
