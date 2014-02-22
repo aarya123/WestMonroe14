@@ -1,0 +1,25 @@
+header {
+	height: 4rem;
+	border-bottom: 1px solid lightgrey;
+}
+nav {
+	width: 10rem;
+	position: absolute;
+	border-right: 1px solid lightgrey;
+	min-height: calc(100% - 4rem - 1px);
+}
+main {
+	margin-left: 10rem;
+	padding: .5rem;
+}
+body {
+	margin: 0;
+}
+input {
+	display: block;
+	margin: .25rem 0;
+	height: 1.5rem;
+	padding: .25rem;
+	box-sizing: border-box;
+	width: 50%;
+}
