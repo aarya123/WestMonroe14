@@ -34,7 +34,7 @@ main {
 	margin-left: 10rem;
 	padding: .5rem;
 }
-input, select {
+input:not[type="radio"], select {
 	width: 100%;
 	display: block;
 	margin: .25rem 0;
