@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+	<ul>
+		<label for="name">Name:</label>
+		<input id="name" type="text" name="name">
+		<label for="email">Email:</label>
+		<input id="email" type="email" name="email">
+		<label for="school">School:</label>
+		<input id="school" type="text" name="school">
+		<label for="major">Major:</label>
+		<input id="major" type="text" name="major">
+		<label for="gpa">GPA:</label>
+		<input id="gpa" type="number" name="gpa">
+		<label for="grad_date">Expected Graduation Date:</label>
+		<input id="grad_date" type="date" name="grad_date">
+		<label for="resume">Resume:</label>
+		<input id="resume" type="file" accept=".pdf" name="resume">
+		<input type="submit" value="Create Candidate">
+	</ul>
+	<script>
+		var req = new XMLHttpRequest();
+		req.onreadystatechange = function() {
+			if(req.readyState == 4) {
+				var candidate = JSON.parse(req.responseText);
+				for(var name in candidate) {
+					document.getElementById(name).setAttribute("value", candidate[name].split(" ")[0]);
+				}
+				console.log(req.responseText);
+			}
+		}
+		
+		req.open('post', 'get_candidate.php', true);
+		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		req.send('id=' + encodeURIComponent('3'));
+	</script>
+</form>
+</body>
