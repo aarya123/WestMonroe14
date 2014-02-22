@@ -9,7 +9,9 @@
 	<input disabled placeholder="Name" id="Name" type="text" name="name">
 	<input disabled placeholder="Interviewer" id="Interviewer" type="text" name="interviewer">
 	<input disabled placeholder="Notes" id="Notes" type="text" name="notes">
-	<input disabled placeholder="Candidate ID" id="Candidate_id" type="text" name="candidate_id">
+	<select disabled id="Candidate_id" name="candidate_id">
+	<?php include("allnames.php"); ?>
+	</select>
 	<input disabled type="submit" value="Update Interview">
 </form>
 
@@ -23,10 +25,20 @@
 			for(var name in candidate) {
 				document.getElementById(name).setAttribute("value", candidate[name].split(" ")[0]);
 			}
-			var formInputs = document.querySelectorAll('#edit_interview input');
+			var formInputs = document.querySelectorAll('#edit_interview input, #edit_interview select');
 			for (var i = 0; i < formInputs.length; i++) {
 				formInputs[i].removeAttribute('disabled');
 			}
+			var select = document.querySelector("#Candidate_id");
+			for(var i = 0; i < select.options.length; ++i) {
+				console.log(i);
+				if(select.options[i].value == candidate.candidate_id) {
+					console.log("SELECT");
+					select.selectedIndex = i;
+					break;
+				}
+			}
+			//document.querySelector("#Candidate_id [id= '" + candidate.candidate_id + "']").addAttribute('selected');
 		}
 		
 		req.open('post', 'get_interview.php', true);
