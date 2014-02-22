@@ -1,5 +1,10 @@
 <?php
 	include_once("db.php");
+	$required = array('name', 'email', 'school', 'major', 'gpa', 'grad_date');
+	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
+		echo json_encode(array('error' => 'invalid args'));
+		exit();
+	}
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
 		$sql_stmt = <<<'EOT'
@@ -16,6 +21,10 @@ EOT;
 				':grad_date' => $_POST['grad_date']
 			)
 		);
+		if($stmt->errorCode() != 0) {
+			echo json_encode(array('error' => $stmt->errorInfo()));
+			exit();
+		}
 		echo json_encode(array('user_id' => $db->lastInsertId()));
 	}
 	catch(PDOException $e) {
