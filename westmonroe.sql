@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `WMP14`.`Candidate` (
   `school` VARCHAR(45) NOT NULL,
   `major` VARCHAR(45) NOT NULL,
   `gpa` DECIMAL(10,0) NOT NULL,
+  `grad_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id` (`id` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
