@@ -1,4 +1,8 @@
 <?php
+$sql_stmt = <<<'EOT'
+INSERT INTO candidate (name, email, school, major, gpa, grad_date)
+VALUES (:name, :email, :school, :major, :gpa, :grad_date)
+EOT;
 	include_once("db.php");
 	$required = array('name', 'email', 'school', 'major', 'gpa', 'grad_date');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
@@ -7,10 +11,6 @@
 	}
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
-		$sql_stmt = <<<'EOT'
-INSERT INTO candidate (name, email, school, major, gpa, grad_date)
-VALUES (:name, :email, :school, :major, :gpa, :grad_date)
-EOT;
 		$stmt = $db->prepare($sql_stmt);
 		$stmt->execute(array(
 				':name' => $_POST['name'],

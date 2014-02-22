@@ -1,4 +1,8 @@
 <?php
+$sql_stmt = <<<'EOT'
+DELETE FROM event_has_candidate 
+WHERE Event_id=:event_id AND Candidate_id=:candidate_id
+EOT;
 include_once("db.php");
 	$required = array('candidate_id', 'event_id');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
@@ -7,10 +11,6 @@ include_once("db.php");
 	}
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
-		$sql_stmt = <<<'EOT'
-DELETE FROM event_has_candidate 
-WHERE Event_id=:event_id AND Candidate_id=:candidate_id
-EOT;
 		$stmt = $db->prepare($sql_stmt);
 		$stmt->execute(array(
 				':candidate_id' => $_POST['candidate_id'],

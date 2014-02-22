@@ -1,4 +1,8 @@
 <?php
+$sql_stmt = <<<'EOT'
+INSERT INTO event (name, description, location, time)
+VALUES (:name, :description, :location, :time)
+EOT;
 include_once("db.php");
 	$required = array('name', 'desc', 'location', 'time');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
@@ -7,11 +11,6 @@ include_once("db.php");
 	}
 	try {
 		$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
-		//TODO: proper time entry
-		$sql_stmt = <<<'EOT'
-INSERT INTO event (name, description, location, time)
-VALUES (:name, :description, :location, :time)
-EOT;
 		$stmt = $db->prepare($sql_stmt);
 		$stmt->execute(array(
 				':name' => $_POST['name'],
