@@ -27,6 +27,5 @@ $sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date) 
 	catch(PDOException $e) {
 		echo json_encode(array('error' => $e->getMessage()));
 	}
-}
 header('Location: /');
 ?>
