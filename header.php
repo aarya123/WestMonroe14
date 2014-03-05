@@ -19,5 +19,6 @@
 		<a href="editInterview.php">Edit an Interview</a>
 		<a href="createQuestion.php">Create a Question</a>
 		<a href="editQuestion.php">Edit a Question</a>
+		<a href="getMetrics.php">Metrics</a>
 	</nav>
 	<main>
