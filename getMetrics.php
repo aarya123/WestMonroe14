@@ -17,6 +17,7 @@
 
 	var dispatch = d3.dispatch("load", "optionchange");
 	var data = <?php include('get_metrics.php'); ?>;
+	var prettyNames = {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status"};
 	var curLabel = null;
 	var handlers = {"mouseover": function(option, label, data) {
 			if(curLabel != label) {
@@ -24,7 +25,7 @@
 				while(list.firstChild) {
 					list.removeChild(list.firstChild);
 				}
-				listHeading.innerHTML = option + " - " + label;
+				listHeading.innerHTML = prettyNames[option] + " - " + label;
 				for(var i = 0; i < data.length; ++i) {
 					var li = document.createElement('li');
 					var a = document.createElement('a');
@@ -100,7 +101,7 @@
 			.data(data.select)
 			.enter().append("option")
 			.attr("value", function(d) { return d; })
-			.text(function(d) { return d; });
+			.text(function(d) { return prettyNames[d]; });
 	});
 
 	dispatch.load(data);
