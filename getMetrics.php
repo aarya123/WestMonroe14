@@ -1,8 +1,13 @@
 <?php include('header.php'); ?>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style>
+
+</style>
+<select id="select" onchange="onSelectOption(this.value)"></select>
 <svg id="svg"></svg>
-<h id="offerListHeading"></h>
-<ul id="offerList"></ul>
+<h id="listHeading"></h>
+<ul id="list"></ul>
+
 <script>
 	function showPieChart(data, id, handlers) {
 		var dataCount = {};
@@ -56,28 +61,44 @@
 	      .style("text-anchor", "middle")
 	      .text(function(d) { return d.data; });
 	}
-	var offerData = <?php include('get_metrics.php'); ?>;
-	var curOfferStatus = null;
-	showPieChart(offerData, "offer_status", {"mouseover": function(label, data) {
-		var offerList = document.getElementById("offerList");
-		if(curOfferStatus != label) {
-			curOfferStatus = label;
-			while(offerList.firstChild) {
-				offerList.removeChild(offerList.firstChild);
-			}
-			document.querySelector("#offerListHeading").innerHTML = label;
-			for(var i = 0; i < data.length; ++i) {
-				var li = document.createElement('li');
-				var a = document.createElement('a');
-				a.setAttribute('href', '/editCandidate.php#' + data[i].name);
-				a.innerHTML = data[i].name;
-				li.appendChild(a);
-				offerList.appendChild(li);
+	var data = <?php include('get_metrics.php'); ?>;
+	var select = document.querySelector('#select');
+	for(var i = 0; i < data.select.length; ++i) {
+		var option = document.createElement('option');
+		option.innerHTML = data.select[i];
+		select.appendChild(option);
+	}
+
+	function onSelectOption(option) {
+		document.querySelector("#svg").style.display = "block";
+		var curLabel = null;
+		var listHeading = document.querySelector("#listHeading");
+		var list = document.querySelector("#list");
+		listHeading.innerHTML = "";
+		while(list.firstChild) {
+			list.removeChild(list.firstChild);
+		}
+		function mouseover(label, data) {
+			if(curLabel != label) {
+				curLabel = label;
+				while(list.firstChild) {
+					list.removeChild(list.firstChild);
+				}
+				listHeading.innerHTML = label;
+				for(var i = 0; i < data.length; ++i) {
+					var li = document.createElement('li');
+					var a = document.createElement('a');
+					a.setAttribute('href', '/editCandidate.php#' + data[i].name);
+					a.innerHTML = data[i].name;
+					li.appendChild(a);
+					list.appendChild(li);
+				}
 			}
 		}
-		console.log(label, data);
-	}});
-	
+		showPieChart(data.data, option, {"mouseover": mouseover});
+	}
+	select.selectedIndex = 0;
+	onSelectOption(select.options[0].value);
 
 </script>
 <?php include('footer.php'); ?>
