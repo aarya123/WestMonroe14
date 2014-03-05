@@ -1,15 +1,43 @@
 <?php include('header.php'); ?>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <style>
-
+#listContainer {
+	text-align: left;
+	margin-left: 50px;
+}
 </style>
-<select id="select" onchange="onSelectOption(this.value)"></select>
+<select id="select"></select>
 <svg id="svg"></svg>
-<h id="listHeading"></h>
-<ul id="list"></ul>
+<div id="listContainer">
+	<h id="listHeading" style="margin: 100px"></h>
+	<ul id="list"></ul>
+</div>
 
 <script>
-	function showPieChart(data, id, handlers) {
+
+	var dispatch = d3.dispatch("load", "optionchange");
+	var data = <?php include('get_metrics.php'); ?>;
+	var curLabel = null;
+	var handlers = {"mouseover": function(option, label, data) {
+			if(curLabel != label) {
+				curLabel = label;
+				while(list.firstChild) {
+					list.removeChild(list.firstChild);
+				}
+				listHeading.innerHTML = option + " - " + label;
+				for(var i = 0; i < data.length; ++i) {
+					var li = document.createElement('li');
+					var a = document.createElement('a');
+					a.setAttribute('href', '/editCandidate.php#' + data[i].name);
+					a.innerHTML = data[i].name;
+					li.appendChild(a);
+					list.appendChild(li);
+				}
+			}
+		}
+	};
+
+	dispatch.on("optionchange.pie", function(id, data) {
 		var dataCount = {};
 		var width = 500;
 		var height = 500;
@@ -24,7 +52,6 @@
 				dataCount[curId].data.push(data[i]);
 			}
 		}
-		
 		var color = d3.scale.category10()
 			.domain(Object.keys(dataCount));
 
@@ -44,14 +71,16 @@
 
 	    var g = svg.selectAll(".arc")
 	    .data(pie(Object.keys(dataCount)))
-	    .enter().append("g").attr("class", "arc");
+	    .enter()
+	    .append("g").attr("class", "arc");
+
 
 	    var path = g.append("path")
 	      .attr("d", arc)
 	      .style("fill", function(d) { return color(d.data); });
 	    for(var e in handlers) {
 	    	path.on(e, function(d) {
-	    		handlers[e](d.data, dataCount[d.data].data);
+	    		handlers[e](id, d.data, dataCount[d.data].data);
 	    	});
 	    }
 
@@ -60,8 +89,24 @@
 	      .attr("dy", ".35em")
 	      .style("text-anchor", "middle")
 	      .text(function(d) { return d.data; });
-	}
-	var data = <?php include('get_metrics.php'); ?>;
+	});
+	
+
+	dispatch.on("load.menu", function(data) {
+		var select = d3.select("#select")
+		.on("change", function() { dispatch.optionchange(this.value, data.data) });
+
+		select.selectAll("option")
+			.data(data.select)
+			.enter().append("option")
+			.attr("value", function(d) { return d; })
+			.text(function(d) { return d; });
+	});
+
+	dispatch.load(data);
+	dispatch.optionchange(data.select[0], data.data);
+	//dispatch.optionchange(data);
+	/*
 	var select = document.querySelector('#select');
 	for(var i = 0; i < data.select.length; ++i) {
 		var option = document.createElement('option');
@@ -78,27 +123,12 @@
 		while(list.firstChild) {
 			list.removeChild(list.firstChild);
 		}
-		function mouseover(label, data) {
-			if(curLabel != label) {
-				curLabel = label;
-				while(list.firstChild) {
-					list.removeChild(list.firstChild);
-				}
-				listHeading.innerHTML = label;
-				for(var i = 0; i < data.length; ++i) {
-					var li = document.createElement('li');
-					var a = document.createElement('a');
-					a.setAttribute('href', '/editCandidate.php#' + data[i].name);
-					a.innerHTML = data[i].name;
-					li.appendChild(a);
-					list.appendChild(li);
-				}
-			}
-		}
-		showPieChart(data.data, option, {"mouseover": mouseover});
+		
+		showPieChart(data.data, option, );
 	}
 	select.selectedIndex = 0;
 	onSelectOption(select.options[0].value);
+	*/
 
 </script>
 <?php include('footer.php'); ?>
