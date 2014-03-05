@@ -1,5 +1,5 @@
 <?php
-$sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date) VALUES (:name, :email, :school, :major, :gpa, :grad_date)";
+$sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date, offer_status) VALUES (:name, :email, :school, :major, :gpa, :grad_date, :offer_status)";
 	include_once("db.php");
 	$required = array('name', 'email', 'school', 'major', 'gpa', 'grad_date');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
@@ -15,7 +15,8 @@ $sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date) 
 				':school' => $_POST['school'],
 				':major' => $_POST['major'],
 				':gpa' => $_POST['gpa'],
-				':grad_date' => $_POST['grad_date']
+				':grad_date' => $_POST['grad_date'],
+				':offer_status' => $_POST['offer_status']
 			)
 		);
 		if($stmt->errorCode() != 0) {

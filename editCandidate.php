@@ -12,6 +12,13 @@
 	<input disabled placeholder="Major" id="major" type="text" name="major">
 	<input disabled placeholder="GPA" id="gpa" type="number" name="gpa">
 	<input disabled placeholder="Expected Graduation Date" id="grad_date" type="date" name="grad_date">
+	<select disabled id="offer_status" name="offer_status">
+		<option>None</option>
+		<option>No Offer</option>
+		<option>Pending</option>
+		<option>Rejected</option>
+		<option>Accepted</option>
+	</select>
 	<label for="resume">Resume:</label>
 	<input disabled id="resume" type="file" accept=".pdf" name="resume">
 	<input disabled type="submit" value="Update Candidate">
@@ -25,9 +32,18 @@
 			document.getElementById('id').value = id;
 			var candidate = JSON.parse(req.responseText);
 			for(var name in candidate) {
-				document.getElementById(name).setAttribute("value", candidate[name].split(" ")[0]);
+				if(name != "offer_status") {
+					document.getElementById(name).setAttribute("value", candidate[name].split(" ")[0]);
+				}
 			}
-			var formInputs = document.querySelectorAll('#create_candidate input');
+			var select = document.querySelector("#offer_status");
+			for(var i = 0; i < select.options.length; ++i) {
+				if(select.options[i].value == candidate.offer_status) {
+					select.selectedIndex = i;
+					break;
+				}
+			}
+			var formInputs = document.querySelectorAll('#create_candidate input, #create_candidate select');
 			for (var i = 0; i < formInputs.length; i++) {
 				formInputs[i].removeAttribute('disabled');
 			}

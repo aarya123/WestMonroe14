@@ -1,7 +1,7 @@
 <?php
-$sql_update_field = "UPDATE Candidate SET name=:name, email=:email, school=:school, major=:major, gpa=:gpa, grad_date=:grad_date WHERE id=:candidate_id";
+$sql_update_field = "UPDATE Candidate SET name=:name, email=:email, school=:school, major=:major, gpa=:gpa, grad_date=:grad_date, offer_status=:offer_status WHERE id=:candidate_id";
 include_once("db.php");
-	$required = array('id', 'name', 'email', 'school', 'major', 'gpa', 'grad_date');
+	$required = array('id', 'name', 'email', 'school', 'major', 'gpa', 'grad_date', 'offer_status');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
 		echo json_encode(array('error' => 'invalid args'));
 		exit();
@@ -16,7 +16,8 @@ include_once("db.php");
 				':major' => $_POST['major'],
 				':gpa' => $_POST['gpa'],
 				':grad_date' => $_POST['grad_date'],
-				':candidate_id' => $_POST['id']
+				':candidate_id' => $_POST['id'],
+				':offer_status' => $_POST['offer_status']
 			)
 		);
 		if($stmt->errorCode() != 0) {

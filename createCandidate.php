@@ -6,6 +6,13 @@
 	<input placeholder="Major" id="major" type="text" name="major">
 	<input placeholder="GPA" id="gpa" type="number" name="gpa">
 	<input placeholder="Expected Graduation Date" id="grad_date" type="date" name="grad_date">
+	<select id="offer_status" name="offer_status">
+		<option>None</option>
+		<option>No Offer</option>
+		<option>Pending</option>
+		<option>Rejected</option>
+		<option>Accepted</option>
+	</select>
 	<label for="resume">Resume:</label>
 	<input id="resume" type="file" accept=".pdf" name="resume">
 	<input type="submit" value="Create Candidate">

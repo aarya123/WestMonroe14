@@ -1,6 +1,6 @@
 <?php
 include_once("db.php");
-$sql_read_candidate = "SELECT name, email, school, major, gpa, grad_date FROM Candidate WHERE id=:candidate_id";
+$sql_read_candidate = "SELECT name, email, school, major, gpa, grad_date, offer_status FROM Candidate WHERE id=:candidate_id";
 $required = array('id');
 	if(count(array_intersect_key(array_flip($required), $_POST)) != count($required)) {
 		echo json_encode(array('error' => 'invalid args'));
