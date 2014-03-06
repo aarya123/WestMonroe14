@@ -19,17 +19,28 @@
 	var data = <?php include('get_metrics.php'); ?>;
 	var prettyNames = {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status"};
 	var curLabel = null;
-	var handlers = {"mouseover": function(option, label, data) {
+	var handlers = {"click": function(option, label, data) {
 			if(curLabel != label) {
 				curLabel = label;
 				while(list.firstChild) {
 					list.removeChild(list.firstChild);
 				}
+				data = data.sort(function(a, b) {
+					if(a.name < b.name) {
+						return -1;
+					}
+					else if(a.name > b.name) {
+						return 1;
+					}
+					else {
+						return 0;
+					}
+				});
 				listHeading.innerHTML = prettyNames[option] + " - " + label;
 				for(var i = 0; i < data.length; ++i) {
 					var li = document.createElement('li');
 					var a = document.createElement('a');
-					a.setAttribute('href', '/editCandidate.php#' + data[i].name);
+					a.setAttribute('href', '/editCandidate.php#' + data[i].id);
 					a.innerHTML = data[i].name;
 					li.appendChild(a);
 					list.appendChild(li);
@@ -106,30 +117,6 @@
 
 	dispatch.load(data);
 	dispatch.optionchange(data.select[0], data.data);
-	//dispatch.optionchange(data);
-	/*
-	var select = document.querySelector('#select');
-	for(var i = 0; i < data.select.length; ++i) {
-		var option = document.createElement('option');
-		option.innerHTML = data.select[i];
-		select.appendChild(option);
-	}
-
-	function onSelectOption(option) {
-		document.querySelector("#svg").style.display = "block";
-		var curLabel = null;
-		var listHeading = document.querySelector("#listHeading");
-		var list = document.querySelector("#list");
-		listHeading.innerHTML = "";
-		while(list.firstChild) {
-			list.removeChild(list.firstChild);
-		}
-		
-		showPieChart(data.data, option, );
-	}
-	select.selectedIndex = 0;
-	onSelectOption(select.options[0].value);
-	*/
 
 </script>
 <?php include('footer.php'); ?>

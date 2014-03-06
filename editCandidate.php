@@ -53,6 +53,17 @@
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		req.send('id=' + encodeURIComponent(id));
 	}
+	if(window.location.hash) {
+		var id = window.location.hash.slice(1);
+		var select = document.querySelector("#selectCandidate");
+		for(var i = 0; i < select.options.length; ++i) {
+			if(select.options[i].value == id) {
+				select.selectedIndex = i;
+				updateCandidate(id);
+				break;
+			}
+		}
+	}
 </script>
 
 <?php include('footer.php') ?>
