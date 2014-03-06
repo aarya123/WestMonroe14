@@ -17,6 +17,8 @@
 		<a href="candidateAttendance.php">Candidate Attendance</a>
 		<a href="createInterview.php">Add an Interview</a>
 		<a href="editInterview.php">Edit an Interview</a>
+		<a href="createNote.php">Add a Note</a>
+		<a href="editNote.php">Edit a Note</a>
 		<a href="createQuestion.php">Create a Question</a>
 		<a href="editQuestion.php">Edit a Question</a>
 		<a href="getMetrics.php">Metrics</a>

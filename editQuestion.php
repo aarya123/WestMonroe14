@@ -42,7 +42,7 @@
 					questionList.appendChild(questionElement);
 				}
 				questionList.selectedIndex = 1;
-				document.getElementById('question_id').value = questions[1].id;
+				document.getElementById('question_id').value = questions[0].id;
 				updateQuestion();
 			}
 			else {

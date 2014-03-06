@@ -8,7 +8,6 @@
 	<input type="hidden" id="interview_id" name="interview_id">
 	<input disabled placeholder="Name" id="Name" type="text" name="name">
 	<input disabled placeholder="Interviewer" id="Interviewer" type="text" name="interviewer">
-	<input disabled placeholder="Notes" id="Notes" type="text" name="notes">
 	<select disabled id="Candidate_id" name="candidate_id">
 	<?php include("allnames.php"); ?>
 	</select>
@@ -22,8 +21,9 @@
 		req.onload = function() {
 			document.getElementById('interview_id').value = id;
 			var candidate = JSON.parse(req.responseText);
+			console.log(candidate);
 			for(var name in candidate) {
-				document.getElementById(name).setAttribute("value", candidate[name].split(" ")[0]);
+				document.getElementById(name).setAttribute("value", candidate[name]);
 			}
 			var formInputs = document.querySelectorAll('#edit_interview input, #edit_interview select');
 			for (var i = 0; i < formInputs.length; i++) {

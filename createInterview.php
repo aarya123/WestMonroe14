@@ -6,7 +6,6 @@
 	<?php include("allnames.php"); ?>
 	</select>
 	<input placeholder="Interviewer" id="interviewer" type="text" name="interviewer">
-	<input placeholder="Notes" id="notes" type="text" name="notes">
 	<input placeholder="Date" id="time" type="date" name="time">
 	<input placeholder="Name" id="name" type="text" name="name">
 	<input type="submit" value="Create Interview">
