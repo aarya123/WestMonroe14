@@ -65,6 +65,7 @@
 
 	function populateList(graph, option, label, data) {
 		if(graph.curLabel != label) {
+			graph.csvButton.style("display", "block");
 			graph.curLabel = label;
 			graph.list.selectAll("li").remove();
 			data = data.sort(cmpName);
@@ -255,7 +256,24 @@
 		list.style("max-height", "300px");
 		list.style("width", "200px");
 		list.style("overflow", "auto");
-		var graph = {"i" : i, "container": graphContainer, "data" : data, "chartType" : chartType, "dataType" : dataType, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
+		var csvButton = listContainer.append("button");
+		csvButton.text("Download CSV");
+		csvButton.style("display", "none");
+		var graph = {"i" : i, "csvButton" : csvButton, "container": graphContainer, "data" : data, "chartType" : chartType, "dataType" : dataType, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
+		csvButton.on("click", function() {
+			var req = new XMLHttpRequest();
+			req.open('post', 'get_csv.php', true);
+			req.setRequestHeader('Content-type', 'application/json');
+			req.onload = function() {
+					var url = req.responseText;
+					console.log(req.responseText);
+					var iframe = document.createElement("iframe");
+					iframe.setAttribute("src", url);
+					iframe.style.display = "none";
+					document.body.appendChild(iframe);
+			}
+			req.send(JSON.stringify(graph.data[graph.dataType.name]));
+		});
 		graphList[i] = graph;
 		graph.dispatch = d3.dispatch("load", "optionchange");
 		graph.dispatch.on("optionchange", chartTypes[graph.chartType](graph));
