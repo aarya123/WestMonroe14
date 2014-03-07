@@ -19,9 +19,10 @@ try {
 		echo json_encode(array('error' => $stmt->errorInfo()));
 		exit();
 	}
+	header("Location: createQuestion.php");
+	die();
 }
 catch(PDOException $e) {
 	echo json_encode(array('error' => $e->getMessage()));
 }
-header("Location: /");
 ?>
