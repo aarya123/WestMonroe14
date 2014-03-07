@@ -4,7 +4,7 @@
 	<input placeholder="Email" id="email" type="email" name="email">
 	<input placeholder="School" id="school" type="text" name="school">
 	<input placeholder="Major" id="major" type="text" name="major">
-	<input placeholder="GPA" id="gpa" type="number" name="gpa">
+	<input placeholder="GPA" id="gpa" type="number" step="any" min="0" max="4" name="gpa">
 	<input placeholder="Expected Graduation Date" id="grad_date" type="date" name="grad_date">
 	<select id="offer_status" name="offer_status">
 		<option>None</option>
