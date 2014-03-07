@@ -32,6 +32,7 @@
 		dataType: "candidateData"
 		}
 	};
+	var graphList = [];
 
 	function cmpName(a, b) {
 		if(a.name < b.name) {
@@ -79,7 +80,19 @@
 			newData[k] = graph.data[k];
 		}
 		newData[graph.dataType.dataType] = data;
-		addGraph(newData, graph.chartType, graph.dataType);
+		var newDataType = {};
+		for(var k in graph.dataType) {
+			newDataType[k] = graph.dataType[k];
+		}
+		newDataType.selectOptions = {};
+		for(var k in graph.dataType.selectOptions) {
+			if(k != option) {
+				newDataType.selectOptions[k] = graph.dataType.selectOptions[k];
+			}
+		}
+		if(Object.keys(newDataType.selectOptions).length > 0) {
+			addGraph(graph.i + 1, newData, graph.chartType, newDataType);
+		}
 	}};
 
 	function getSelector(graph) {
@@ -141,9 +154,18 @@
 	  	}
 	}};
 
+	function removeGraph(graph) {
+		graph.container.remove();
+	}
 
-	function addGraph(data, chartType, dataType) {
-		console.log(data, chartType, dataType);
+	function addGraph(i, data, chartType, dataType) {
+		console.log(i, data, chartType, dataType);
+		if(i < graphList.length) {
+			while(graphList.length != i) {
+				removeGraph(graphList[graphList.length - 1]);
+				graphList.pop();
+			}
+		}
 		var graphContainer = d3.select("main").append("div");
 		graphContainer.style("width", "700px");
 		var select = graphContainer.append("select");
@@ -156,7 +178,8 @@
 		list.style("max-height", "300px");
 		list.style("width", "150px");
 		list.style("overflow", "auto");
-		var graph = {"data" : data, "chartType" : chartType, "dataType" : dataType, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
+		var graph = {"i" : i, "container": graphContainer, "data" : data, "chartType" : chartType, "dataType" : dataType, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
+		graphList[i] = graph;
 		graph.dispatch = d3.dispatch("load", "optionchange");
 		graph.dispatch.on("optionchange", chartTypes[graph.chartType](graph));
 		graph.dispatch.on("load.menu", getSelector(graph));
@@ -164,7 +187,7 @@
 		graph.dispatch.optionchange(Object.keys(graph.dataType.selectOptions)[0], data[graph.dataType.dataType]);
 	}
 
-	addGraph(allData, "pie", dataTypes.candidate);
+	addGraph(0, allData, "pie", dataTypes.candidate);
 
 </script>
 <?php include('footer.php'); ?>
