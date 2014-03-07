@@ -19,7 +19,7 @@ try {
 		echo json_encode(array('error' => $stmt->errorInfo()));
 		exit();
 	}
-	header("Location: createEvent.php");
+	header("Location: createInterview.php");
 	die();
 }
 catch(PDOException $e) {
