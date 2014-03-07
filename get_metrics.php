@@ -2,7 +2,7 @@
 include_once("db.php");
 try {
 	$db = new PDO(DB_CONN_STR, DB_USER, DB_PASSWORD);
-	$candidateData = $db->prepare('SELECT id, name, school, major, gpa, DATE_FORMAT(grad_date, "%b %y") AS grad_date, offer_status FROM candidate');
+	$candidateData = $db->prepare('SELECT candidate.id AS id, candidate.name AS name, candidate.school AS school, candidate.major AS major, candidate.gpa AS gpa, DATE_FORMAT(candidate.grad_date, "%b %y") AS grad_date, candidate.offer_status AS offer_status, COUNT(candidate.id) AS attended_count FROM candidate LEFT JOIN event_has_candidate ON candidate.id=event_has_candidate.candidate_id GROUP BY candidate.id');
 	$eventData = $db->prepare('SELECT id, name, location, DATE_FORMAT(time, "%y %b %d") AS time, description FROM event');
 	$eventAttendanceData = $db->prepare('SELECT Event_id, Candidate_id, notes, attended FROM  event_has_candidate');
 	$candidateData->execute();

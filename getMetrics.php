@@ -28,11 +28,14 @@
 	var allData = <?php include('get_metrics.php'); ?>;
 	var dataTypes = {"candidate" : {
 			editPage: "/editCandidate.php",
-			selectOptions: {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status"},
-			optionTypes: {"school" : "category", "grad_date": "date", "major" : "category", "gpa" : "number", "offer_status" : "category"},
+			selectOptions: {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status", "attended_count" : "# Events Attended"},
+			optionTypes: {"school" : "category", "grad_date": "date", "major" : "category", "gpa" : "number", "offer_status" : "category", "attended_count" : "number"},
 			name: "candidateData"
 		}
 	};
+	for(var i = 0; i < allData.eventAttendanceData.length; ++i) {
+
+	}
 
 	var months = {"Jan" : 1, "Feb" : 2, "Mar" : 3, "Apr" : 4, "May" : 5, "Jun" : 6, "Jul" : 7, "Aug" : 8, "Sep" : 9, "Oct" : 10, "Nov" : 11, "Dec" : 12};
 
@@ -167,9 +170,7 @@
 					});
 					graph.selectContainer = selectContainer;
 				}
-				else {
-					graph.dispatch.optionchange(option, data);
-				}
+				graph.dispatch.optionchange(option, data);
 			});
 
 			select.selectAll("option")
