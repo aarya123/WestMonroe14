@@ -24,10 +24,10 @@ include_once("db.php");
 			echo json_encode(array('error' => $stmt->errorInfo()));
 			exit();
 		}
-		echo json_encode(array('ok' => ""));
+		header("Location: editCandidate.php");
+ 		die();
 	}
 	catch(PDOException $e) {
 		echo json_encode(array('error' => $e->getMessage()));
 	}
-header('Location: /');
 ?>
