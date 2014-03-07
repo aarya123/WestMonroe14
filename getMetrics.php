@@ -31,11 +31,14 @@
 			selectOptions: {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status", "attended_count" : "# Events Attended"},
 			optionTypes: {"school" : "category", "grad_date": "date", "major" : "category", "gpa" : "number", "offer_status" : "category", "attended_count" : "number"},
 			name: "candidateData"
+		},
+		"event" : {
+			editPage: "/editEvent.php",
+			selectOptions: {"time" : "Date", "location" : "Location", "attended_count" : "# Attendees"},
+			optionTypes: {"time" : "date", "location" : "category", "attended_count" : "number"},
+			name: "eventData"
 		}
 	};
-	for(var i = 0; i < allData.eventAttendanceData.length; ++i) {
-
-	}
 
 	var months = {"Jan" : 1, "Feb" : 2, "Mar" : 3, "Apr" : 4, "May" : 5, "Jun" : 6, "Jul" : 7, "Aug" : 8, "Sep" : 9, "Oct" : 10, "Nov" : 11, "Dec" : 12};
 
@@ -261,7 +264,7 @@
 		graph.dispatch.optionchange(Object.keys(graph.dataType.selectOptions)[0], data[graph.dataType.name]);
 	}
 
-	addGraph(0, allData, "pie", dataTypes.candidate);
+	addGraph(0, allData, "pie", dataTypes.event);
 
 </script>
 <?php include('footer.php'); ?>
