@@ -30,13 +30,15 @@
 			editPage: "/editCandidate.php",
 			selectOptions: {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status", "attended_count" : "# Events Attended"},
 			optionTypes: {"school" : "category", "grad_date": "date", "major" : "category", "gpa" : "number", "offer_status" : "category", "attended_count" : "number"},
-			name: "candidateData"
+			name: "candidateData",
+			prettyName: "Candidates"
 		},
 		"event" : {
 			editPage: "/editEvent.php",
-			selectOptions: {"time" : "Date", "location" : "Location", "attended_count" : "# Attendees"},
+			selectOptions: {"location" : "Location", "time" : "Date", "attended_count" : "# Attendees"},
 			optionTypes: {"time" : "date", "location" : "category", "attended_count" : "number"},
-			name: "eventData"
+			name: "eventData",
+			prettyName: "Events"
 		}
 	};
 
@@ -156,7 +158,6 @@
 					var filterButton = selectContainer.append("button").text("Filter");
 					filterButton.on("click", function() {
 						var less = Date.parse(lessValue[0][0].value), great = Date.parse(greatValue[0][0].value);
-						console.log(less, great);
 						if(isNaN(less) || isNaN(great) || great < less) {
 							return;
 						}
@@ -236,7 +237,6 @@
 	}
 
 	function addGraph(i, data, chartType, dataType) {
-		console.log(i, data, chartType, dataType);
 		if(i < graphList.length) {
 			while(graphList.length != i) {
 				removeGraph(graphList[graphList.length - 1]);
@@ -264,7 +264,28 @@
 		graph.dispatch.optionchange(Object.keys(graph.dataType.selectOptions)[0], data[graph.dataType.name]);
 	}
 
-	addGraph(0, allData, "pie", dataTypes.event);
+	var selectDataType = d3.select("main").append("select");
+	selectDataType.selectAll("option")
+				.data(Object.keys(dataTypes))
+				.enter().append("option")
+				.attr("value", function(d) { return d; })
+				.text(function(d) { return dataTypes[d].prettyName; });
+
+	function changeGraph(type) {
+		while(graphList.length > 0) {
+			removeGraph(graphList[0]);
+			graphList.shift();
+		}
+		addGraph(0, allData, "pie", dataTypes[type]);
+	}
+	selectDataType.on("change", function() {
+		changeGraph(this.value);
+	});
+
+	changeGraph(Object.keys(dataTypes)[0]);
+
+
+	//addGraph(0, allData, "pie", dataTypes.event);
 
 </script>
 <?php include('footer.php'); ?>
