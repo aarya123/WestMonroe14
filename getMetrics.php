@@ -51,19 +51,19 @@
 		}
 	}
 
-	function countData(id, data) {
-		var dataCount = {};
+	function filterData(id, data) {
+		var filteredData = {};
 		for(var i = 0; i < data.length; ++i) {
 			var curId = data[i][id];
-			if(!dataCount[curId]) {
-				dataCount[curId] = {count: 1, data: [data[i]]};
+			if(!filteredData[curId]) {
+				filteredData[curId] = {count: 1, data: [data[i]]};
 			}
 			else {
-				dataCount[curId].count++;
-				dataCount[curId].data.push(data[i]);
+				filteredData[curId].count++;
+				filteredData[curId].data.push(data[i]);
 			}
 		}
-		return dataCount;
+		return filteredData;
 	}
 
 	var handlers = {"click": function(graph, option, label, data) {
@@ -91,17 +91,17 @@
 
 	var chartTypes = {"pie" : function(graph) {
 		return function(id, data) {
-			var dataCount = countData(id, data);
+			var filteredData = filterData(id, data);
 			var width = 500;
 			var height = 500;
 			var radius = 250;
 			
 			var color = d3.scale.category10()
-				.domain(Object.keys(dataCount));
+				.domain(Object.keys(filteredData));
 
 			var pie  = d3.layout.pie()
 				.sort(null)
-				.value(function(id) { return dataCount[id].count});
+				.value(function(id) { return filteredData[id].count});
 
 			var arc = d3.svg.arc()
 		    .outerRadius(radius - 10)
@@ -114,7 +114,7 @@
 		    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 		    var g = svg.selectAll(".arc")
-		    .data(pie(Object.keys(dataCount)))
+		    .data(pie(Object.keys(filteredData)))
 		    .enter()
 		    .append("g").attr("class", "arc");
 
@@ -124,7 +124,7 @@
 		      .style("fill", function(d) { return color(d.data); });
 		    for(var e in handlers) {
 		    	path.on(e, function(d) {
-		    		handlers[e](graph, id, d.data, dataCount[d.data].data);
+		    		handlers[e](graph, id, d.data, filteredData[d.data].data);
 		    	});
 		    }
 
@@ -139,11 +139,17 @@
 
 	function createGraph(chartType, dataType) {
 		var graphContainer = d3.select("main").append("div");
+		graphContainer.style("width", "700px");
 		var select = graphContainer.append("select");
 		var svg = graphContainer.append("svg");
 		var listContainer = graphContainer.append("div");
+		listContainer.style("float", "right");
 		var listHeading = listContainer.append("h");
+		listHeading.style("text-align", "left");
 		var list = listContainer.append("ul");
+		list.style("max-height", "300px");
+		list.style("width", "150px");
+		list.style("overflow", "auto");
 		var graph = {"chartType" : chartType, "dataType" : dataType, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
 		graph.dispatch = d3.dispatch("load", "optionchange");
 		graph.dispatch.on("optionchange", chartTypes[graph.chartType](graph));
