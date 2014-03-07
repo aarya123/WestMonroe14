@@ -23,7 +23,7 @@ $sql_stmt = "INSERT INTO Candidate (name, email, school, major, gpa, grad_date, 
 			echo json_encode(array('error' => $stmt->errorInfo()));
 			exit();
 		}
-		header("Location: createEvent.php");
+		header("Location: createCandidate.php");
 		die();
 	}
 	catch(PDOException $e) {
