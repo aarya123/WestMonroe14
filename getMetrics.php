@@ -26,12 +26,7 @@
 <script>
 
 	var data = <?php include('get_metrics.php'); ?>;
-	var infos = {"candidate" : {
-		editPage: "/editCandidate.php",
-		selectOptions: {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status"},
-		dataType: "candidateData"
-		}
-	};
+
 	function cmpName(a, b) {
 		if(a.name < b.name) {
 			return -1;
@@ -49,9 +44,9 @@
 			graph.curLabel = label;
 			graph.list.selectAll("li").remove();
 			data = data.sort(cmpName);
-			graph.listHeading.text(graph.info.selectOptions[option] + " - " + label);
+			graph.listHeading.text(graph.dataType.selectOptions[option] + " - " + label);
 			for(var i = 0; i < data.length; ++i) {
-				graph.list.append("li").append("a").attr("href",graph.info.editPage + "#" + data[i].id).text(data[i].name);
+				graph.list.append("li").append("a").attr("href",graph.dataType.editPage + "#" + data[i].id).text(data[i].name);
 			}
 		}
 	}
@@ -71,12 +66,31 @@
 		return dataCount;
 	}
 
-	function getPieGraphMaker(graph) {
+	var handlers = {"click": function(graph, option, label, data) {
+		populateList(graph, option, label, data);
+	}};
+
+	function getSelector(graph) {
+		return function(data) {
+			var select = graph.select.on("change", function() { graph.dispatch.optionchange(this.value, data[graph.dataType.dataType]) });
+
+			select.selectAll("option")
+				.data(Object.keys(graph.dataType.selectOptions))
+				.enter().append("option")
+				.attr("value", function(d) { return d; })
+				.text(function(d) { return graph.dataType.selectOptions[d]; });
+		}
+	}
+
+	var dataTypes = {"candidate" : {
+		editPage: "/editCandidate.php",
+		selectOptions: {"school": "School", "grad_date": "Grad Date", "major" : "Major", "gpa" : "GPA", "offer_status" : "Offer Status"},
+		dataType: "candidateData"
+		}
+	};
+
+	var chartTypes = {"pie" : function(graph) {
 		return function(id, data) {
-			graph.curLabel = null;
-			var handlers = {"click": function(option, label, data) {
-				populateList(graph, option, label, data);
-			}};
 			var dataCount = countData(id, data);
 			var width = 500;
 			var height = 500;
@@ -110,7 +124,7 @@
 		      .style("fill", function(d) { return color(d.data); });
 		    for(var e in handlers) {
 		    	path.on(e, function(d) {
-		    		handlers[e](id, d.data, dataCount[d.data].data);
+		    		handlers[e](graph, id, d.data, dataCount[d.data].data);
 		    	});
 		    }
 
@@ -120,40 +134,25 @@
 		      .style("text-anchor", "middle")
 		      .text(function(d) { return d.data; });
 	  	}
-	}
-
-	function getSelector(graph) {
-		return function(data) {
-			var select = graph.select.on("change", function() { graph.dispatch.optionchange(this.value, data[graph.info.dataType]) });
-
-			select.selectAll("option")
-				.data(Object.keys(graph.info.selectOptions))
-				.enter().append("option")
-				.attr("value", function(d) { return d; })
-				.text(function(d) { return graph.info.selectOptions[d]; });
-		}
-	}
+	}};
 
 
-	function initPieGraph(graph) {
+	function createGraph(chartType, dataType) {
+		var graphContainer = d3.select("main").append("div");
+		var select = graphContainer.append("select");
+		var svg = graphContainer.append("svg");
+		var listContainer = graphContainer.append("div");
+		var listHeading = listContainer.append("h");
+		var list = listContainer.append("ul");
+		var graph = {"chartType" : chartType, "dataType" : dataType, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
 		graph.dispatch = d3.dispatch("load", "optionchange");
-		graph.dispatch.on("optionchange.pie", getPieGraphMaker(graph));
+		graph.dispatch.on("optionchange", chartTypes[graph.chartType](graph));
 		graph.dispatch.on("load.menu", getSelector(graph));
 		graph.dispatch.load(data);
-		graph.dispatch.optionchange(Object.keys(graph.info.selectOptions)[0], data[graph.info.dataType]);
+		graph.dispatch.optionchange(Object.keys(graph.dataType.selectOptions)[0], data[graph.dataType.dataType]);
 	}
 
-	function createGraph(info) {
-		var graph = d3.select("main").append("div");
-		var select = graph.append("select");
-		var svg = graph.append("svg");
-		var listContainer = graph.append("div");
-		var listHeading = graph.append("h");
-		var list = graph.append("ul");
-		return {"info" : info, "select" : select, "svg" : svg, "listContainer" : listContainer, "listHeading" : listHeading, "list" : list};
-	}
-
-	initPieGraph(createGraph(infos.candidate));
+	createGraph("pie", dataTypes.candidate);
 
 </script>
 <?php include('footer.php'); ?>
